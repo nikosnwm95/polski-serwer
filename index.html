@@ -3,61 +3,563 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Polski serwer o wszystkim</title>
+<title>Polski serwer o&nbsp;wszystkim</title>
 <meta name="description" content="Polski serwer o wszystkim: każda gra i szukanie ekipy, wiadomości i alerty, kuchnia, filmy, muzyka, sport, technologia, praca i finanse.">
+<meta name="theme-color" content="#dc1e3c">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
 <meta property="og:title" content="Polski serwer o wszystkim">
 <meta property="og:description" content="Polski serwer o wszystkim: każda gra i szukanie ekipy, wiadomości i alerty, kuchnia, filmy, muzyka, sport, technologia, praca i finanse.">
+<meta property="og:url" content="https://nikosnwm95.github.io/polski-serwer/">
+<meta property="og:image" content="https://nikosnwm95.github.io/polski-serwer/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://nikosnwm95.github.io/polski-serwer/og.png">
+<link rel="canonical" href="https://nikosnwm95.github.io/polski-serwer/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script>document.documentElement.classList.add("js")</script>
 <style>
-:root { --tlo:#14111d; --karta:#1f1a2e; --tekst:#f2f0f7; --szary:#a9a2bd; --akcent:#a770ff; --zielony:#57f287; }
-* { box-sizing:border-box; }
-body { margin:0; font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif; background:var(--tlo); color:var(--tekst);
-       line-height:1.55; }
-.srodek { max-width:1040px; margin:0 auto; padding:0 16px; }
-header { padding:72px 0 48px; background:radial-gradient(1200px 400px at 50% -10%, #3b2766 0%, transparent 70%); }
-h1 { font-size:clamp(32px,6vw,54px); margin:0 0 12px; letter-spacing:-0.5px; }
-.lead { font-size:19px; color:var(--szary); max-width:680px; margin:0 0 28px; }
-.liczby { display:flex; gap:28px; flex-wrap:wrap; margin:0 0 30px; color:var(--szary); }
-.liczby b { display:block; font-size:30px; color:var(--tekst); }
-.przycisk { display:inline-block; background:var(--akcent); color:#fff; padding:14px 28px; border-radius:12px;
-            font-weight:600; text-decoration:none; font-size:18px; }
-.przycisk:hover { filter:brightness(1.1); }
-section { padding:36px 0; }
-h2 { font-size:28px; margin:0 0 18px; }
-.siatka { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; }
-.karta { background:var(--karta); border-radius:16px; padding:22px; }
-.karta h3 { margin:8px 0 6px; font-size:19px; }
-.karta p { margin:0; color:var(--szary); }
-.ikona { font-size:30px; }
-.gildia { display:flex; justify-content:space-between; align-items:center; gap:12px; background:var(--karta);
-          border-radius:12px; padding:14px 18px; margin-bottom:10px; }
-.gildia small { color:var(--szary); }
-.tag { font-size:13px; padding:4px 10px; border-radius:99px; background:#3a3350; color:var(--szary); white-space:nowrap; }
-.tag.zielony { background:rgba(87,242,135,.15); color:var(--zielony); }
-.liczba { color:var(--szary); font-size:14px; }
-.pusto { color:var(--szary); }
-footer { padding:36px 0 56px; color:var(--szary); font-size:14px; }
+:root {
+  --tlo: #0c0809; --tlo-2: #120b0e; --powierzchnia: #181013;
+  --ramka: rgba(255,255,255,.08); --ramka-2: rgba(255,255,255,.15);
+  --tekst: #f8f3f4; --szary: #bcaab0; --ciemny: #8d7b81;
+  --czerwien: #dc1e3c; --czerwien-jasna: #ff5470; --czerwien-ciemna: #7a0d20;
+  --zielony: #23a55a; --zolty: #d9a62e; --kafel: #3b3337;
+  --promien: 20px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--tlo); color: var(--tekst); line-height: 1.6; overflow-x: hidden;
+  font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+[hidden] { display: none !important; }
+.srodek { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+/* --- przyciski --- */
+.przycisk { display: inline-flex; align-items: center; gap: 10px; padding: 15px 26px; border-radius: 14px; font-weight: 700;
+  font-size: 17px; text-decoration: none; color: #fff; border: 0; cursor: pointer;
+  background: linear-gradient(135deg, var(--czerwien-jasna), var(--czerwien) 55%, #a3122c);
+  box-shadow: 0 12px 32px -10px rgba(220,30,60,.75), inset 0 1px 0 rgba(255,255,255,.25);
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease; }
+.przycisk:hover { transform: translateY(-2px); box-shadow: 0 18px 42px -12px rgba(220,30,60,.9), inset 0 1px 0 rgba(255,255,255,.25); }
+.przycisk:focus-visible, summary:focus-visible, .szukaj input:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.przycisk svg { width: 18px; height: 18px; flex: none; }
+.przycisk.drugi { background: rgba(255,255,255,.06); box-shadow: inset 0 0 0 1px var(--ramka-2); }
+.przycisk.drugi:hover { background: rgba(255,255,255,.11); }
+.przycisk.maly { padding: 10px 18px; font-size: 15px; border-radius: 12px; }
+.przycisk.bialy { background: #fff; color: #b3132f; box-shadow: 0 12px 30px -12px rgba(0,0,0,.5); }
+
+/* --- góra strony --- */
+.hero { position: relative; padding: 16px 0 80px; overflow: hidden;
+  background: radial-gradient(900px 520px at 88% -8%, rgba(220,30,60,.34), transparent 62%),
+              radial-gradient(760px 520px at -12% 6%, rgba(122,13,32,.5), transparent 62%),
+              linear-gradient(180deg, #170b10 0%, var(--tlo) 100%); }
+.hero::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 25%, transparent 72%);
+  mask-image: radial-gradient(ellipse at 50% 0%, #000 25%, transparent 72%); }
+.pasek { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 8px; }
+.marka { display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 700; min-width: 0; }
+.marka img { width: 40px; height: 40px; border-radius: 12px; box-shadow: 0 8px 22px -6px rgba(220,30,60,.6); flex: none; }
+.marka span { font-size: 17px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hero-siatka { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; padding-top: 64px; }
+.plakietka { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 99px; font-size: 14px;
+  font-weight: 600; color: var(--szary); background: rgba(255,255,255,.06); border: 1px solid var(--ramka); }
+/* flaga z CSS, bo Windows zamiast emoji 🇵🇱 pokazuje litery „PL” */
+.flaga { width: 20px; height: 13px; border-radius: 2px; flex: none; box-shadow: 0 0 0 1px rgba(255,255,255,.15);
+  background: linear-gradient(#fff 50%, #dc143c 50%); }
+h1 { font-size: clamp(38px, 6.2vw, 68px); line-height: 1.04; letter-spacing: -1.5px; margin: 22px 0 20px; font-weight: 800; }
+.gradient { background: linear-gradient(90deg, #fff 0%, var(--czerwien-jasna) 50%, var(--czerwien) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lead { font-size: clamp(17px, 2vw, 20px); color: var(--szary); max-width: 560px; margin: 0 0 30px; }
+.akcje { display: flex; flex-wrap: wrap; gap: 12px; }
+.liczby { display: flex; flex-wrap: wrap; gap: 14px 36px; margin: 40px 0 0; padding: 0; list-style: none; }
+.liczby b { display: flex; align-items: center; gap: 9px; font-size: 30px; line-height: 1.15; font-weight: 800; letter-spacing: -.5px; }
+.liczby span { color: var(--szary); font-size: 14px; }
+.online b::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--zielony); animation: puls 2s infinite; }
+@keyframes puls { 0% { box-shadow: 0 0 0 0 rgba(35,165,90,.55); } 70% { box-shadow: 0 0 0 10px rgba(35,165,90,0); } 100% { box-shadow: 0 0 0 0 rgba(35,165,90,0); } }
+
+/* --- podgląd okna Discorda --- */
+.okno { border-radius: 18px; background: #1a1416; border: 1px solid var(--ramka-2); overflow: hidden;
+  box-shadow: 0 40px 90px -30px rgba(0,0,0,.85), 0 0 0 1px rgba(0,0,0,.4), 0 0 80px -20px rgba(220,30,60,.35);
+  transform: perspective(1400px) rotateY(-7deg) rotateX(2deg); transition: transform .5s ease; }
+.okno:hover { transform: perspective(1400px) rotateY(0) rotateX(0); }
+.okno-pasek { display: flex; gap: 7px; padding: 12px 14px; background: #140f11; border-bottom: 1px solid var(--ramka); }
+.okno-pasek i { width: 11px; height: 11px; border-radius: 50%; background: #ff5f57; }
+.okno-pasek i:nth-child(2) { background: #febc2e; }
+.okno-pasek i:nth-child(3) { background: #28c840; }
+.okno-wnetrze { display: grid; grid-template-columns: 196px 1fr; }
+.kanaly { background: #161113; padding: 12px 10px 16px; font-size: 13.5px; border-right: 1px solid var(--ramka); min-width: 0; }
+.serwer { display: flex; align-items: center; gap: 9px; padding: 2px 6px 12px; margin-bottom: 4px; border-bottom: 1px solid var(--ramka);
+  font-weight: 700; font-size: 13px; min-width: 0; }
+.serwer img { width: 26px; height: 26px; border-radius: 8px; flex: none; }
+.serwer span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kat { font-size: 11px; font-weight: 700; letter-spacing: .4px; color: var(--ciemny); margin: 12px 6px 4px; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; }
+.kanal { padding: 4px 8px; border-radius: 6px; color: #a8999e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kanal.aktywny { background: rgba(255,255,255,.08); color: #fff; }
+.kanal small { display: block; color: var(--ciemny); font-size: 11.5px; padding-left: 20px; }
+.czat { padding: 0 16px 16px; min-width: 0; }
+.czat-naglowek { padding: 12px 2px; border-bottom: 1px solid var(--ramka); font-weight: 700; font-size: 14px; margin-bottom: 14px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wiad { display: flex; gap: 12px; margin-bottom: 16px; }
+.awatar { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: #fff;
+  background: linear-gradient(135deg, #ff8fb1, #c03a8c); }
+.wiad-tresc { min-width: 0; flex: 1; }
+.nick { font-weight: 700; color: #ff9cc0; font-size: 14.5px; }
+.czas { color: var(--ciemny); font-size: 12px; margin-left: 6px; font-weight: 400; }
+.panel { margin-top: 6px; background: #221a1d; border: 1px solid var(--ramka); border-left: 4px solid var(--zielony); border-radius: 10px;
+  padding: 12px 14px; font-size: 13.5px; max-width: 340px; }
+.panel b { display: block; margin-bottom: 4px; }
+.panel p { margin: 0 0 10px; color: #cbbcc1; }
+.kafelki { display: grid; grid-template-columns: repeat(5, 24px); gap: 4px; margin-bottom: 10px; }
+.kafelki i { width: 24px; height: 24px; border-radius: 5px; background: var(--kafel); }
+.kafelki .z { background: var(--zielony); }
+.kafelki .y { background: var(--zolty); }
+.guzik { display: inline-block; padding: 6px 14px; border-radius: 8px; background: var(--zielony); color: #fff; font-weight: 700; font-size: 13px; }
+.guzik.szary { background: #3a3236; margin-left: 6px; }
+.lista-gier { margin: 0 0 10px; padding: 0; list-style: none; }
+.lista-gier li { padding: 2px 0; }
+.lista-gier b { display: inline; }
+.lista-gier small { color: var(--ciemny); }
+.wybor { display: flex; justify-content: space-between; padding: 7px 10px; border-radius: 8px; background: #171214;
+  border: 1px solid var(--ramka); color: #a8999e; }
+.podpis { margin: 16px 4px 0; text-align: center; color: var(--ciemny); font-size: 13px; }
+
+/* --- przesuwający się pas gier --- */
+.pas { position: relative; padding: 22px 0; border-block: 1px solid var(--ramka); background: var(--tlo-2); overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.pas-tor { display: flex; width: max-content; animation: przesun 80s linear infinite; }
+.pas-tor > div { display: flex; gap: 10px; padding-right: 10px; }
+.pas:hover .pas-tor { animation-play-state: paused; }
+@keyframes przesun { to { transform: translateX(-50%); } }
+.chip { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 99px; font-size: 14.5px; white-space: nowrap;
+  background: rgba(255,255,255,.05); border: 1px solid var(--ramka); }
+
+/* --- sekcje --- */
+section { padding: 96px 0; }
+.naglowek { max-width: 700px; margin: 0 0 44px; }
+.nadtytul { color: var(--czerwien-jasna); font-weight: 700; font-size: 13.5px; letter-spacing: 1.4px; text-transform: uppercase; }
+h2 { font-size: clamp(30px, 4.2vw, 46px); line-height: 1.1; letter-spacing: -1px; margin: 10px 0 14px; font-weight: 800; }
+.pod { color: var(--szary); font-size: 18px; margin: 0; }
+
+.bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.karta { position: relative; background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.018));
+  border: 1px solid var(--ramka); border-radius: var(--promien); padding: 26px; overflow: hidden;
+  transition: border-color .2s ease, transform .2s ease; }
+.karta:hover { border-color: rgba(255,84,112,.38); transform: translateY(-3px); }
+.karta.szeroka { grid-column: span 2; }
+.karta h3 { margin: 16px 0 8px; font-size: 21px; letter-spacing: -.3px; line-height: 1.25; }
+.karta p { margin: 0; color: var(--szary); }
+.ikona { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; font-size: 24px;
+  background: rgba(220,30,60,.12); border: 1px solid rgba(255,84,112,.25); }
+.dodatek { margin-top: 22px; }
+.karta .chipy .chip { font-size: 13.5px; padding: 6px 12px; }
+.karta.cta { display: flex; flex-direction: column; justify-content: space-between; border-color: transparent;
+  background: radial-gradient(420px 220px at 20% 0%, rgba(255,255,255,.2), transparent 70%),
+              linear-gradient(140deg, #ff5470 0%, #dc1e3c 45%, #6d0b1c 100%); }
+.karta.cta p { color: rgba(255,255,255,.88); }
+.karta.cta .przycisk { margin-top: 22px; align-self: flex-start; }
+.mala-rozmowa { display: flex; gap: 10px; align-items: flex-end; }
+.dymek { background: #2a2024; border: 1px solid var(--ramka); border-radius: 16px 16px 16px 4px; padding: 9px 14px; font-size: 14.5px; }
+.odpowiedzi { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.odpowiedzi span { padding: 8px 10px; border-radius: 10px; background: rgba(255,255,255,.05); border: 1px solid var(--ramka); font-size: 14px; }
+.odpowiedzi .dobra { background: rgba(35,165,90,.18); border-color: rgba(35,165,90,.55); }
+.pasek-czasu { height: 6px; border-radius: 99px; background: rgba(255,255,255,.08); overflow: hidden; margin-bottom: 12px; }
+.pasek-czasu i { display: block; height: 100%; width: 62%; background: linear-gradient(90deg, var(--zolty), var(--czerwien-jasna)); }
+.glosowe { display: grid; gap: 8px; }
+.glosowe div { display: flex; justify-content: space-between; gap: 10px; padding: 9px 12px; border-radius: 10px; font-size: 14px;
+  background: rgba(255,255,255,.04); border: 1px solid var(--ramka); }
+.glosowe small { color: var(--szary); white-space: nowrap; }
+.drzewo { display: grid; gap: 6px; font-size: 14.5px; }
+.drzewo .gora { font-weight: 700; letter-spacing: .3px; font-size: 13px; color: var(--szary); }
+.drzewo div:not(.gora) { padding: 6px 12px; border-radius: 8px; background: rgba(255,255,255,.04); }
+.tagi { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.tag { padding: 5px 11px; border-radius: 99px; font-size: 13px; background: rgba(220,30,60,.14); color: #ffb3c0; border: 1px solid rgba(255,84,112,.25); }
+.wiersze { display: grid; gap: 8px; font-size: 14.5px; }
+.wiersze div { display: flex; gap: 10px; padding: 8px 12px; border-radius: 10px; background: rgba(255,255,255,.04); }
+.xp-opis { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--szary); margin-bottom: 7px; }
+.xp-pasek { height: 10px; border-radius: 99px; background: rgba(255,255,255,.08); overflow: hidden; }
+.xp-pasek i { display: block; height: 100%; width: 68%; background: linear-gradient(90deg, var(--czerwien), var(--czerwien-jasna)); }
+
+/* --- gry --- */
+.szukaj { position: relative; display: block; max-width: 540px; margin: 0 0 30px; }
+.szukaj input { width: 100%; padding: 15px 18px 15px 48px; border-radius: 14px; border: 1px solid var(--ramka-2);
+  background: var(--powierzchnia); color: var(--tekst); font: inherit; font-size: 16px; }
+.szukaj input::placeholder { color: var(--ciemny); }
+.szukaj input:focus { border-color: var(--czerwien-jasna); box-shadow: 0 0 0 4px rgba(255,84,112,.15); outline: none; }
+.szukaj svg { position: absolute; left: 17px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--ciemny); }
+.grupa { margin-bottom: 28px; }
+.grupa h3 { font-size: 17px; margin: 0 0 12px; color: var(--szary); font-weight: 700; }
+.chipy { display: flex; flex-wrap: wrap; gap: 8px; }
+.brak { color: var(--szary); font-size: 17px; }
+
+/* --- gildie --- */
+.dwie { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.kroki { list-style: none; padding: 0; margin: 30px 0 0; display: grid; gap: 16px; counter-reset: k; }
+.kroki li { position: relative; padding: 2px 0 2px 56px; counter-increment: k; color: var(--szary); min-height: 40px; }
+.kroki li::before { content: counter(k); position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 12px; display: grid;
+  place-items: center; font-weight: 800; color: #fff; background: linear-gradient(135deg, var(--czerwien-jasna), var(--czerwien)); }
+.kroki b { color: var(--tekst); display: block; }
+.checklista { list-style: none; padding: 0; margin: 0; display: grid; gap: 13px; }
+.checklista li { display: flex; gap: 12px; align-items: flex-start; }
+.checklista li::before { content: "✓"; flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+  font-size: 13px; font-weight: 800; background: rgba(35,165,90,.18); color: #5fdc92; margin-top: 1px; }
+.karta-gildii h3 { margin-top: 0; }
+.lista-gildii { margin-top: 40px; display: grid; gap: 10px; }
+.gildia { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: var(--powierzchnia);
+  border: 1px solid var(--ramka); border-radius: 14px; padding: 14px 18px; }
+.gildia small { color: var(--szary); }
+.stan { font-size: 13px; padding: 4px 10px; border-radius: 99px; background: #3a3350; color: var(--szary); white-space: nowrap; }
+.stan.otwarta { background: rgba(35,165,90,.15); color: #5fdc92; }
+.liczba { color: var(--szary); font-size: 14px; }
+
+/* --- jak dołączyć, pytania, koniec --- */
+.trzy { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.numer { font-size: 46px; font-weight: 800; line-height: 1; color: transparent; -webkit-text-stroke: 1.5px rgba(255,84,112,.8); }
+.faq { max-width: 800px; display: grid; gap: 10px; }
+details { background: var(--powierzchnia); border: 1px solid var(--ramka); border-radius: 16px; padding: 0 22px; }
+details[open] { border-color: rgba(255,84,112,.3); }
+summary { cursor: pointer; list-style: none; padding: 18px 0; font-weight: 700; font-size: 17px; display: flex; justify-content: space-between;
+  align-items: center; gap: 16px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; color: var(--czerwien-jasna); font-size: 24px; line-height: 1; transition: transform .2s ease; flex: none; }
+details[open] summary::after { transform: rotate(45deg); }
+details p { margin: 0 0 18px; color: var(--szary); }
+.koniec { padding: 0 0 96px; }
+.baner { position: relative; overflow: hidden; border-radius: 28px; padding: 60px 40px; text-align: center;
+  background: radial-gradient(640px 300px at 50% 0%, rgba(255,255,255,.2), transparent 70%),
+              linear-gradient(135deg, #ff5470, #dc1e3c 50%, #5e0918); }
+.baner h2 { margin: 0 0 10px; }
+.baner p { color: rgba(255,255,255,.88); margin: 0 auto 28px; font-size: 18px; max-width: 640px; }
+footer { border-top: 1px solid var(--ramka); padding: 32px 0 48px; color: var(--ciemny); font-size: 14px; }
+.stopka { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: center; }
+.stopka .marka img { width: 30px; height: 30px; border-radius: 9px; box-shadow: none; }
+.stopka .marka span { font-size: 15px; color: var(--tekst); }
+
+/* --- animacje wejścia (tylko z włączonym JS) --- */
+.js .pojaw { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.js .pojaw.widoczne { opacity: 1; transform: none; }
+
+/* --- ekrany --- */
+@media (max-width: 960px) {
+  .hero-siatka { grid-template-columns: 1fr; gap: 44px; padding-top: 44px; }
+  .okno, .okno:hover { transform: none; }
+  .bento { grid-template-columns: repeat(2, 1fr); }
+  .dwie { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 760px) {
+  .trzy { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .srodek { padding: 0 16px; }
+  section { padding: 68px 0; }
+  .bento { grid-template-columns: 1fr; }
+  .karta.szeroka { grid-column: auto; }
+  .okno-wnetrze { grid-template-columns: 1fr; }
+  .kanaly { display: none; }
+  .baner { padding: 42px 22px; border-radius: 22px; }
+  .karta { padding: 22px; }
+}
+@media (max-width: 440px) {
+  .pasek .marka span { display: none; }
+  .przycisk { width: 100%; justify-content: center; }
+  .pasek .przycisk, .karta.cta .przycisk { width: auto; }
+  .odpowiedzi { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before { animation: none !important; transition: none !important; }
+  .js .pojaw { opacity: 1; transform: none; }
+}
 </style>
 </head>
 <body>
-<header><div class="srodek">
-<h1>Polski serwer o wszystkim</h1>
-<p class="lead">Polski serwer o wszystkim: każda gra i szukanie ekipy, wiadomości i alerty, kuchnia, filmy, muzyka, sport, technologia, praca i finanse.</p>
-<div class="liczby"><div><b>65</b>osób</div><div><b>13</b>online</div><div><b>120</b>gier
-z własnym kanałem</div></div>
-<a class="przycisk" href="https://discord.gg/6XWCR6JbFd">Dołącz na Discordzie</a>
-</div></header>
-<section><div class="srodek"><h2>Co u nas jest</h2><div class="siatka">
-<div class="karta"><div class="ikona">🎮</div><h3>Każda gra osobno</h3><p>120 gier z własnym kanałem i rolą, szukanie ekipy jedną komendą, a w zakładce „Teraz grają” widać, w co grają ludzie w tej chwili.</p></div>
-<div class="karta"><div class="ikona">🏰</div><h3>Gildie jak mini serwery</h3><p>Własna kategoria z ogłoszeniami, czatem, dowództwem i głosowym, rekrutacja z podaniami, DKP i obecność na rajdach, harmonogram i sojusze. Za darmo.</p></div>
-<div class="karta"><div class="ikona">💜</div><h3>Anastazja</h3><p>Administratorka serwera, która odpisuje o każdej porze, pamięta, w co grasz, i nie zostawia nikogo bez odpowiedzi.</p></div>
-<div class="karta"><div class="ikona">🟩</div><h3>Gry bez gospodarza</h3><p>Codzienne słówko (polskie Wordle), czwartkowy quiz, łańcuch słów i liczenie. Za wygrane XP i rangi miesiąca.</p></div>
-<div class="karta"><div class="ikona">📰</div><h3>Newsy i alerty</h3><p>Rano pogoda, imieniny i kursy walut, w ciągu dnia wiadomości, ostrzeżenia IMGW, darmowe gry i promocje Steam w złotówkach.</p></div>
-<div class="karta"><div class="ikona">🔊</div><h3>Głosowe, które żyją</h3><p>Własny kanał jednym kliknięciem, a pod nazwą każdego kanału widać, co się dzieje w środku.</p></div>
-</div></div></section>
-<section><div class="srodek"><h2>Gildie na serwerze</h2>
-<p class="pusto">Pierwsze gildie dopiero się zakładają. Prowadzisz gildię? Przenieś ją do nas: własne kanały i narzędzia dostajesz od ręki.</p>
-</div></section>
-<footer><div class="srodek">Liczby z 18.10.2026 14:35. Serwer polskiej społeczności, z regulaminem i moderacją.
-Strona nie używa ciasteczek ani śledzenia.</div></footer>
+
+<header class="hero">
+  <nav class="srodek pasek">
+    <a class="marka" href="#"><img src="ikona.png" alt="" width="40" height="40"><span>Polski serwer o&nbsp;wszystkim</span></a>
+    <a class="przycisk maly" href="https://discord.gg/6XWCR6JbFd">Dołącz</a>
+  </nav>
+  <div class="srodek hero-siatka">
+    <div>
+      <span class="plakietka"><span class="flaga"></span>Polski serwer na Discordzie</span>
+      <h1>Gry, rozmowy i&nbsp;ludzie <span class="gradient">z&nbsp;całej Polski</span></h1>
+      <p class="lead">Każda gra ma tu własny kanał, gildie dostają własne miejsce, a&nbsp;codziennie coś się dzieje: słówko dnia,
+        quiz, newsy i&nbsp;promocje. Wpadnij pograć albo po prostu pogadać.</p>
+      <div class="akcje">
+        <a class="przycisk" href="https://discord.gg/6XWCR6JbFd">Dołącz na Discordzie
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="przycisk drugi" href="#co-jest">Co jest w&nbsp;środku</a>
+      </div>
+      <ul class="liczby">
+        <li><b>65</b><span>osób na serwerze</span></li>
+        <li class="online"><b>13</b><span>online</span></li>
+        <li><b>120</b><span>gier z&nbsp;własnym kanałem</span></li>
+        
+      </ul>
+    </div>
+    <div aria-hidden="true">
+      <div class="okno">
+        <div class="okno-pasek"><i></i><i></i><i></i></div>
+        <div class="okno-wnetrze">
+          <div class="kanaly">
+            <div class="serwer"><img src="ikona.png" alt=""><span>Polski serwer o&nbsp;wszystkim</span></div>
+            <div class="kat">📌 START</div>
+            <div class="kanal"># 📢・ogłoszenia</div>
+            <div class="kanal"># 🎭・wybierz-role</div>
+            <div class="kat">💬 SPOŁECZNOŚĆ</div>
+            <div class="kanal aktywny"># 💬・ogólny</div>
+            <div class="kanal"># 🟩・słówko-dnia</div>
+            <div class="kanal"># 🧠・quiz</div>
+            <div class="kat">🎮 GRANIE</div>
+            <div class="kanal"># 🟢・teraz-grają</div>
+            <div class="kanal"># 🔍・szukam-ekipy</div>
+            <div class="kat">🎮 GRANIE NA GŁOSOWYM</div>
+            <div class="kanal">🔊 Granie #1<small>🎮 Counter-Strike 2 · 3 os.</small></div>
+          </div>
+          <div class="czat">
+            <div class="czat-naglowek"># 💬・ogólny</div>
+            <div class="wiad">
+              <div class="awatar">A</div>
+              <div class="wiad-tresc"><span class="nick">Anastazja</span><span class="czas">dziś o&nbsp;8:00</span>
+                <div class="panel"><b>🟩 Słówko dnia</b><p>Nowe słowo z&nbsp;5 liter. Masz 6 prób.</p>
+                  <div class="kafelki"><i></i><i class="y"></i><i></i><i></i><i class="z"></i><i class="z"></i><i></i><i class="y"></i><i></i><i class="z"></i><i class="z"></i><i class="z"></i><i class="z"></i><i class="z"></i><i class="z"></i></div>
+                  <span class="guzik">Graj</span><span class="guzik szary">Ranking</span></div>
+              </div>
+            </div>
+            <div class="wiad">
+              <div class="awatar">A</div>
+              <div class="wiad-tresc"><span class="nick">Anastazja</span><span class="czas">dziś o&nbsp;19:42</span>
+                <div class="panel"><b>🟢 Teraz grają</b>
+                  <ul class="lista-gier"><li><b>🔫 Counter-Strike 2</b> • 3 os. <small>(2 na głosowym)</small></li><li><b>🗝️ Tibia</b> • 2 os.</li><li><b>⛏️ Minecraft</b> • 1 os. <small>(1 na głosowym)</small></li></ul>
+                  <div class="wybor"><span>🎮 Chcę zagrać w…</span><span>⌄</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="podpis">Tak wyglądają panele na serwerze (przykład)</p>
+    </div>
+  </div>
+</header>
+
+<div class="pas" aria-hidden="true"><div class="pas-tor"><div><span class="chip">🔫 Counter-Strike 2</span><span class="chip">💥 Call of Duty</span><span class="chip">🛡️ Rainbow Six Siege</span><span class="chip">🎖️ Delta Force</span><span class="chip">🦾 Overwatch 2</span><span class="chip">🚢 World of Warships</span><span class="chip">🍳 PUBG: Battlegrounds</span><span class="chip">🏟️ The Finals</span><span class="chip">🐉 World of Warcraft</span><span class="chip">⛵ Lost Ark</span><span class="chip">⚜️ Guild Wars 2</span><span class="chip">⚒️ RuneScape</span><span class="chip">🗡️ Margonem</span><span class="chip">🌑 Broken Ranks</span><span class="chip">🚀 EVE Online</span><span class="chip">🏜️ Dune: Awakening</span><span class="chip">🐺 Wiedźmin</span><span class="chip">💍 Elden Ring</span><span class="chip">📖 Baldur&#x27;s Gate 3</span><span class="chip">🏔️ The Elder Scrolls</span><span class="chip">⛏️ Minecraft</span><span class="chip">🦖 ARK</span><span class="chip">🦊 Palworld</span><span class="chip">🧪 Schedule I</span><span class="chip">🚛 Euro Truck Simulator 2</span><span class="chip">🏚️ House Flipper</span><span class="chip">👑 Europa Universalis</span><span class="chip">🗺️ Total War</span><span class="chip">⚽ EA FC</span><span class="chip">🚘 Gran Turismo</span><span class="chip">🚀 Rocket League</span><span class="chip">⚡ Mortal Kombat</span><span class="chip">👻 Phasmophobia</span><span class="chip">🧗 PEAK</span><span class="chip">🫘 Fall Guys</span><span class="chip">📲 Gry mobilne</span><span class="chip">🛖 Clash of Clans</span><span class="chip">🌸 Genshin Impact</span><span class="chip">🌊 Wuthering Waves</span><span class="chip">🐔 Stardew Valley</span></div><div><span class="chip">🔫 Counter-Strike 2</span><span class="chip">💥 Call of Duty</span><span class="chip">🛡️ Rainbow Six Siege</span><span class="chip">🎖️ Delta Force</span><span class="chip">🦾 Overwatch 2</span><span class="chip">🚢 World of Warships</span><span class="chip">🍳 PUBG: Battlegrounds</span><span class="chip">🏟️ The Finals</span><span class="chip">🐉 World of Warcraft</span><span class="chip">⛵ Lost Ark</span><span class="chip">⚜️ Guild Wars 2</span><span class="chip">⚒️ RuneScape</span><span class="chip">🗡️ Margonem</span><span class="chip">🌑 Broken Ranks</span><span class="chip">🚀 EVE Online</span><span class="chip">🏜️ Dune: Awakening</span><span class="chip">🐺 Wiedźmin</span><span class="chip">💍 Elden Ring</span><span class="chip">📖 Baldur&#x27;s Gate 3</span><span class="chip">🏔️ The Elder Scrolls</span><span class="chip">⛏️ Minecraft</span><span class="chip">🦖 ARK</span><span class="chip">🦊 Palworld</span><span class="chip">🧪 Schedule I</span><span class="chip">🚛 Euro Truck Simulator 2</span><span class="chip">🏚️ House Flipper</span><span class="chip">👑 Europa Universalis</span><span class="chip">🗺️ Total War</span><span class="chip">⚽ EA FC</span><span class="chip">🚘 Gran Turismo</span><span class="chip">🚀 Rocket League</span><span class="chip">⚡ Mortal Kombat</span><span class="chip">👻 Phasmophobia</span><span class="chip">🧗 PEAK</span><span class="chip">🫘 Fall Guys</span><span class="chip">📲 Gry mobilne</span><span class="chip">🛖 Clash of Clans</span><span class="chip">🌸 Genshin Impact</span><span class="chip">🌊 Wuthering Waves</span><span class="chip">🐔 Stardew Valley</span></div></div></div>
+
+<section id="co-jest">
+  <div class="srodek">
+    <div class="naglowek pojaw">
+      <span class="nadtytul">Co jest w&nbsp;środku</span>
+      <h2>Serwer, na którym zawsze coś się dzieje</h2>
+      <p class="pod">Nawet gdy mało kto jest online: codzienne gry i&nbsp;newsy, a&nbsp;Anastazja odpisze, gdy nikt inny nie zdąży.</p>
+    </div>
+    <div class="bento">
+      <div class="karta szeroka pojaw">
+        <div class="ikona">🎮</div>
+        <h3>Każda gra osobno</h3>
+        <p>120 gier z&nbsp;własnym kanałem, rolą do wołania ekipy i&nbsp;głosowym. W&nbsp;„Teraz grają” widać, kto w&nbsp;co gra,
+          a&nbsp;jednym kliknięciem zawołasz ludzi do swojej gry.</p>
+        <div class="dodatek chipy"><span class="chip">🔫 Counter-Strike 2</span><span class="chip">🏆 League of Legends</span><span class="chip">⛏️ Minecraft</span><span class="chip">🪂 Fortnite</span><span class="chip">🎯 Valorant</span><span class="chip">🚔 GTA</span><span class="chip">🗝️ Tibia</span><span class="chip">🐲 Metin2</span><span class="chip">🐺 Wiedźmin</span><span class="chip">🪓 Rust</span><span class="chip">+110 innych</span></div>
+      </div>
+      <div class="karta pojaw">
+        <div class="ikona">💜</div>
+        <h3>Anastazja</h3>
+        <p>Administratorka serwera. Odpisuje, gdy nikt inny nie zdążył, pamięta, w&nbsp;co grasz, i&nbsp;pomaga ogarnąć serwer.</p>
+        <div class="dodatek mala-rozmowa"><div class="awatar">A</div><div class="dymek">Cześć! W&nbsp;co dziś grasz? 😊</div></div>
+      </div>
+      <div class="karta pojaw">
+        <div class="ikona">🟩</div>
+        <h3>Słówko dnia</h3>
+        <p>Codziennie nowe słowo z&nbsp;5 liter i&nbsp;6 prób. Wynik pokazujesz kwadracikami, bez zdradzania hasła. Serie i&nbsp;ranking.</p>
+        <div class="dodatek kafelki"><i></i><i class="y"></i><i></i><i></i><i class="z"></i><i class="z"></i><i class="z"></i><i class="z"></i><i class="z"></i><i class="z"></i></div>
+      </div>
+      <div class="karta pojaw">
+        <div class="ikona">🧠</div>
+        <h3>Quiz w&nbsp;czwartki</h3>
+        <p>O&nbsp;20:00 quiz na żywo: 10 pytań, 20 sekund na odpowiedź, punkty za szybkość. Solo zagrasz o&nbsp;każdej porze.</p>
+        <div class="dodatek"><div class="pasek-czasu"><i></i></div>
+          <div class="odpowiedzi"><span>A. Kraków</span><span class="dobra">B. Gniezno</span><span>C. Poznań</span><span>D. Płock</span></div></div>
+      </div>
+      <div class="karta pojaw">
+        <div class="ikona">🔊</div>
+        <h3>Głosowe, które żyją</h3>
+        <p>Własny kanał jednym kliknięciem, a&nbsp;pod nazwą kanału widać, co się dzieje w&nbsp;środku.</p>
+        <div class="dodatek glosowe"><div>🔊 Granie #1 <small>🎮 Counter-Strike 2 · 3 os.</small></div><div>🔊 Pogaduchy <small>💬 Pogaduchy</small></div></div>
+      </div>
+      <div class="karta pojaw">
+        <div class="ikona">📰</div>
+        <h3>Newsy i&nbsp;alerty</h3>
+        <p>Rano pogoda, imieniny i&nbsp;kursy walut. W&nbsp;ciągu dnia wiadomości z&nbsp;Polski i&nbsp;ze świata, ostrzeżenia IMGW, darmowe gry
+          i&nbsp;promocje Steam w&nbsp;złotówkach.</p>
+      </div>
+      <div class="karta szeroka pojaw">
+        <div class="ikona">🏰</div>
+        <h3>Gildie jak mini serwery</h3>
+        <p>Własna kategoria z&nbsp;ogłoszeniami, czatem, dowództwem i&nbsp;głosowym. Rekrutacja z&nbsp;podaniami, DKP, obecność na rajdach,
+          harmonogram i&nbsp;sojusze. Za darmo.</p>
+        <div class="dodatek tagi"><span class="tag">📢 Ogłoszenia</span><span class="tag">🛡️ Dowództwo</span><span class="tag">📝 Podania</span><span class="tag">💰 DKP</span><span class="tag">📋 Obecność</span><span class="tag">🗓️ Harmonogram</span><span class="tag">🤝 Sojusze</span></div>
+      </div>
+      <div class="karta pojaw">
+        <div class="ikona">🏆</div>
+        <h3>Poziomy i&nbsp;rangi</h3>
+        <p>XP za rozmowy, wygrane w&nbsp;grach serwerowych i&nbsp;zaproszonych znajomych. Co miesiąc Mistrz quizu i&nbsp;Mistrz słówka.</p>
+        <div class="dodatek"><div class="xp-opis"><span>Poziom 12</span><span>68%</span></div><div class="xp-pasek"><i></i></div></div>
+      </div>
+      <div class="karta pojaw">
+        <div class="ikona">🛡️</div>
+        <h3>Spokój i&nbsp;porządek</h3>
+        <p>Krótki regulamin, ekipa moderatorów i&nbsp;automatyczne filtry spamu. Zero hejtu i&nbsp;nękania, a&nbsp;polityka ma osobne forum.</p>
+      </div>
+      <div class="karta cta pojaw">
+        <div><h3>Jest miejsce dla Ciebie</h3><p>Dołączenie trwa minutę i&nbsp;nic nie kosztuje.</p></div>
+        <a class="przycisk bialy" href="https://discord.gg/6XWCR6JbFd">Dołącz teraz</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gry" style="padding-top:0">
+  <div class="srodek">
+    <div class="naglowek pojaw">
+      <span class="nadtytul">Gry</span>
+      <h2>120 gier. Każda ma swój kanał.</h2>
+      <p class="pod">Przy wejściu wybierasz swoje gry i&nbsp;od razu widzisz ich kanały, rolę do wołania ekipy i&nbsp;głosowe. Sprawdź, czy jest Twoja.</p>
+    </div>
+    <label class="szukaj pojaw">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="szukaj" type="search" placeholder="Szukaj gry, np. Tibia, CS2, Minecraft…" aria-label="Szukaj gry" autocomplete="off">
+    </label>
+    <div class="pojaw">
+      <div class="grupa"><h3>🔫 Shootery i&nbsp;MOBA</h3><div class="chipy"><span class="chip" data-n="counter-strike 2 cs2 counter-strike 2 counter strike">🔫 Counter-Strike 2</span><span class="chip" data-n="valorant valorant valorant">🎯 Valorant</span><span class="chip" data-n="fortnite fortnite fortnite">🪂 Fortnite</span><span class="chip" data-n="call of duty call-of-duty call of duty">💥 Call of Duty</span><span class="chip" data-n="battlefield battlefield battlefield 6 i starsze czesci">🪖 Battlefield</span><span class="chip" data-n="apex legends apex-legends apex legends">🔺 Apex Legends</span><span class="chip" data-n="rainbow six siege rainbow-six rainbow six siege rainbow six">🛡️ Rainbow Six Siege</span><span class="chip" data-n="escape from tarkov escape-from-tarkov escape from tarkov tarkov">🎒 Escape from Tarkov</span><span class="chip" data-n="arc raiders arc-raiders arc raiders">🛰️ ARC Raiders</span><span class="chip" data-n="delta force delta-force delta force">🎖️ Delta Force</span><span class="chip" data-n="gray zone warfare gray-zone-warfare gray zone warfare">🌫️ Gray Zone Warfare</span><span class="chip" data-n="marvel rivals marvel-rivals marvel rivals">🦸 Marvel Rivals</span><span class="chip" data-n="overwatch 2 overwatch-2 overwatch 2 overwatch">🦾 Overwatch 2</span><span class="chip" data-n="world of tanks world-of-tanks world of tanks world of tanks">⚙️ World of Tanks</span><span class="chip" data-n="war thunder war-thunder war thunder">✈️ War Thunder</span><span class="chip" data-n="world of warships world-of-warships world of warships">🚢 World of Warships</span><span class="chip" data-n="league of legends league-of-legends league of legends league of legends">🏆 League of Legends</span><span class="chip" data-n="dota 2 dota-2 dota 2 dota">🧙 Dota 2</span><span class="chip" data-n="pubg: battlegrounds pubg pubg">🍳 PUBG: Battlegrounds</span><span class="chip" data-n="hunt: showdown 1896 hunt-showdown hunt">🤠 Hunt: Showdown 1896</span><span class="chip" data-n="helldivers 2 helldivers-2 helldivers 2">🪲 Helldivers 2</span><span class="chip" data-n="the finals the-finals the finals">🏟️ The Finals</span><span class="chip" data-n="deadlock deadlock deadlock">🦾 Deadlock</span><span class="chip" data-n="s.t.a.l.k.e.r. 2 stalker s">☢️ S.T.A.L.K.E.R. 2</span></div></div>
+<div class="grupa"><h3>⚔️ MMO i&nbsp;ARPG</h3><div class="chipy"><span class="chip" data-n="world of warcraft world-of-warcraft world of warcraft">🐉 World of Warcraft</span><span class="chip" data-n="throne and liberty throne-and-liberty throne and liberty">🏰 Throne and Liberty</span><span class="chip" data-n="aion 2 aion-2 aion 2 aion 2 aion2">🪽 AION 2</span><span class="chip" data-n="lost ark lost-ark lost ark">⛵ Lost Ark</span><span class="chip" data-n="black desert black-desert black desert black desert">🐎 Black Desert</span><span class="chip" data-n="albion online albion-online albion online">🏹 Albion Online</span><span class="chip" data-n="guild wars 2 guild-wars-2 guild wars 2">⚜️ Guild Wars 2</span><span class="chip" data-n="final fantasy xiv final-fantasy-xiv final fantasy xiv final fantasy xiv">🔮 Final Fantasy XIV</span><span class="chip" data-n="elder scrolls online elder-scrolls-online the elder scrolls online elder scrolls online">🧝 Elder Scrolls Online</span><span class="chip" data-n="runescape runescape runescape i old school runescape old school runescape osrs">⚒️ RuneScape</span><span class="chip" data-n="metin2 metin2 metin2 metin">🐲 Metin2</span><span class="chip" data-n="tibia tibia tibia">🗝️ Tibia</span><span class="chip" data-n="margonem margonem margonem">🗡️ Margonem</span><span class="chip" data-n="path of exile path-of-exile path of exile 1 i 2">💀 Path of Exile</span><span class="chip" data-n="diablo diablo diablo iv i starsze">😈 Diablo</span><span class="chip" data-n="broken ranks broken-ranks broken ranks">🌑 Broken Ranks</span><span class="chip" data-n="new world new-world new world">🌍 New World</span><span class="chip" data-n="lineage 2 lineage-2 lineage 2 lineage ii">🏯 Lineage 2</span><span class="chip" data-n="eve online eve-online eve online">🚀 EVE Online</span><span class="chip" data-n="destiny 2 destiny-2 destiny 2">🌌 Destiny 2</span><span class="chip" data-n="warframe warframe warframe">🦿 Warframe</span><span class="chip" data-n="dune: awakening dune-awakening dune">🏜️ Dune: Awakening</span><span class="chip" data-n="last epoch last-epoch last epoch">🕰️ Last Epoch</span><span class="chip" data-n="mu online mu-online mu online">🌀 MU Online</span></div></div>
+<div class="grupa"><h3>🗡️ RPG, single player i&nbsp;survival</h3><div class="chipy"><span class="chip" data-n="wiedzmin wiedzmin wiedzmin 3, wiedzmin 4 i cale uniwersum witcher">🐺 Wiedźmin</span><span class="chip" data-n="cyberpunk 2077 cyberpunk-2077 cyberpunk 2077, phantom liberty i co dalej w night city">🌆 Cyberpunk 2077</span><span class="chip" data-n="gta gta gta v, gta online, serwery rp i odliczanie do gta vi grand theft auto">🚔 GTA</span><span class="chip" data-n="elden ring elden-ring elden ring i nightreign elden ring">💍 Elden Ring</span><span class="chip" data-n="dark souls dark-souls dark souls 1-3">🔥 Dark Souls</span><span class="chip" data-n="lies of p lies-of-p lies of p i dodatek overture">🎭 Lies of P</span><span class="chip" data-n="baldur&#x27;s gate 3 baldurs-gate-3 baldur&#x27;s gate 3 baldurs gate">📖 Baldur&#x27;s Gate 3</span><span class="chip" data-n="kingdom come: deliverance kingdom-come kingdom come kingdom come">⚔️ Kingdom Come: Deliverance</span><span class="chip" data-n="gothic gothic gothic 1, 2, 3 i remake">🌄 Gothic</span><span class="chip" data-n="the elder scrolls elder-scrolls skyrim, oblivion remastered i czekanie na tes vi skyrim oblivion morrowind">🏔️ The Elder Scrolls</span><span class="chip" data-n="clair obscur: expedition 33 expedition-33 clair obscur clair obscur expedition 33">🎨 Clair Obscur: Expedition 33</span><span class="chip" data-n="single player single-player gry dla jednego gracza">🎮 Single player</span><span class="chip" data-n="minecraft minecraft minecraft">⛏️ Minecraft</span><span class="chip" data-n="rust rust rust">🪓 Rust</span><span class="chip" data-n="dayz dayz dayz">🧟 DayZ</span><span class="chip" data-n="ark ark ark ark survival">🦖 ARK</span><span class="chip" data-n="valheim valheim valheim valheim">🛶 Valheim</span><span class="chip" data-n="enshrouded enshrouded enshrouded">🕯️ Enshrouded</span><span class="chip" data-n="palworld palworld palworld">🦊 Palworld</span><span class="chip" data-n="7 days to die 7-days-to-die 7 days to die">🩸 7 Days to Die</span><span class="chip" data-n="terraria terraria terraria">🌳 Terraria</span><span class="chip" data-n="schedule i schedule-i schedule i">🧪 Schedule I</span><span class="chip" data-n="roblox roblox roblox">🧱 Roblox</span><span class="chip" data-n="conan exiles conan-exiles conan exiles">🗿 Conan Exiles</span></div></div>
+<div class="grupa"><h3>♟️ Strategie, symulatory i&nbsp;sport</h3><div class="chipy"><span class="chip" data-n="euro truck simulator 2 euro-truck-simulator ets2 i american truck simulator euro truck simulator american truck simulator">🚛 Euro Truck Simulator 2</span><span class="chip" data-n="farming simulator farming-simulator farming simulator">🚜 Farming Simulator</span><span class="chip" data-n="car mechanic simulator car-mechanic-simulator car mechanic simulator">🔧 Car Mechanic Simulator</span><span class="chip" data-n="house flipper house-flipper house flipper 1 i 2">🏚️ House Flipper</span><span class="chip" data-n="flight simulator flight-simulator microsoft flight simulator flight simulator">🛫 Flight Simulator</span><span class="chip" data-n="hearts of iron iv hearts-of-iron-iv hearts of iron iv hearts of iron">♟️ Hearts of Iron IV</span><span class="chip" data-n="europa universalis europa-universalis europa universalis v i iv">👑 Europa Universalis</span><span class="chip" data-n="crusader kings iii crusader-kings-iii crusader kings iii">🤴 Crusader Kings III</span><span class="chip" data-n="civilization civilization civilization vii i vi civilization">🏛️ Civilization</span><span class="chip" data-n="total war total-war total war">🗺️ Total War</span><span class="chip" data-n="age of empires age-of-empires age of empires ii, iv i mythology">🏯 Age of Empires</span><span class="chip" data-n="manor lords manor-lords manor lords">🌾 Manor Lords</span><span class="chip" data-n="ea fc ea-fc ea sports fc ea sports fc fifa">⚽ EA FC</span><span class="chip" data-n="f1 f1 gry f1 f1 2 f1 25 f1 24 f1 manager">🏎️ F1</span><span class="chip" data-n="forza forza forza horizon i forza motorsport forza horizon forza motorsport">🏁 Forza</span><span class="chip" data-n="gran turismo gran-turismo gran turismo 7">🚘 Gran Turismo</span><span class="chip" data-n="assetto corsa assetto-corsa assetto corsa, competizione i evo">🛞 Assetto Corsa</span><span class="chip" data-n="iracing iracing iracing">🚦 iRacing</span><span class="chip" data-n="rocket league rocket-league rocket league">🚀 Rocket League</span><span class="chip" data-n="tekken 8 tekken-8 tekken 8 tekken">🥊 Tekken 8</span><span class="chip" data-n="street fighter 6 street-fighter-6 street fighter 6 street fighter">👊 Street Fighter 6</span><span class="chip" data-n="mortal kombat mortal-kombat mortal kombat 1 i starsze mortal kombat">⚡ Mortal Kombat</span><span class="chip" data-n="super smash bros. super-smash-bros super smash bros">🌟 Super Smash Bros.</span><span class="chip" data-n="frostpunk frostpunk frostpunk 1 i 2">❄️ Frostpunk</span></div></div>
+<div class="grupa"><h3>🎉 Co-op, party, planszówki i&nbsp;mobile</h3><div class="chipy"><span class="chip" data-n="phasmophobia phasmophobia phasmophobia phasmophobia">👻 Phasmophobia</span><span class="chip" data-n="lethal company lethal-company lethal company">🔦 Lethal Company</span><span class="chip" data-n="r.e.p.o. repo r repo">📦 R.E.P.O.</span><span class="chip" data-n="peak peak peak">🧗 PEAK</span><span class="chip" data-n="dead by daylight dead-by-daylight dead by daylight">🪝 Dead by Daylight</span><span class="chip" data-n="among us among-us among us among us">🛸 Among Us</span><span class="chip" data-n="fall guys fall-guys fall guys">🫘 Fall Guys</span><span class="chip" data-n="jackbox jackbox jackbox party pack">📺 Jackbox</span><span class="chip" data-n="planszowki i sesje rpg planszowki-i-sesje-rpg planszowki, karcianki, sesje rpg (d&amp;d, warhammer)">🎲 Planszówki i&nbsp;sesje RPG</span><span class="chip" data-n="gry mobilne gry-mobilne inne gry na telefon">📲 Gry mobilne</span><span class="chip" data-n="brawl stars brawl-stars brawl stars">⭐ Brawl Stars</span><span class="chip" data-n="clash royale clash-royale clash royale">🃏 Clash Royale</span><span class="chip" data-n="clash of clans clash-of-clans clash of clans">🛖 Clash of Clans</span><span class="chip" data-n="pokemon go pokemon-go pokemon go">🔴 Pokémon GO</span><span class="chip" data-n="pubg mobile pubg-mobile pubg mobile">🍳 PUBG Mobile</span><span class="chip" data-n="genshin impact genshin-impact genshin impact genshin">🌸 Genshin Impact</span><span class="chip" data-n="honkai: star rail honkai-star-rail honkai star rail">🚆 Honkai: Star Rail</span><span class="chip" data-n="zenless zone zero zenless-zone-zero zenless zone zero">📼 Zenless Zone Zero</span><span class="chip" data-n="wuthering waves wuthering-waves wuthering waves">🌊 Wuthering Waves</span><span class="chip" data-n="sea of thieves sea-of-thieves sea of thieves">🏴‍☠️ Sea of Thieves</span><span class="chip" data-n="deep rock galactic deep-rock-galactic deep rock galactic">⛏️ Deep Rock Galactic</span><span class="chip" data-n="stardew valley stardew-valley stardew valley">🐔 Stardew Valley</span><span class="chip" data-n="project zomboid project-zomboid project zomboid">🧟‍♂️ Project Zomboid</span><span class="chip" data-n="heroes of might and magic iii heroes-3 heroes iii heroes of might heroes 3 homm">🦄 Heroes of Might and Magic III</span></div></div>
+      <p class="brak" id="brak" hidden>Tej gry nie ma jeszcze na liście. Napisz o&nbsp;niej na #gry-od-a-do-z&nbsp;i&nbsp;zaproponuj ją ekipie.</p>
+    </div>
+  </div>
+</section>
+
+<section id="gildie" style="padding-top:0">
+  <div class="srodek">
+    <div class="dwie">
+      <div class="pojaw">
+        <span class="nadtytul">Gildie i&nbsp;klany</span>
+        <h2>Masz gildię? Przenieś ją do nas.</h2>
+        <p class="pod">Gildia dostaje własny kawałek serwera, a&nbsp;Ty narzędzia, których zwykle szuka się po kilku botach.</p>
+        <ol class="kroki">
+          <li><b>Zgłoś gildię</b>w&nbsp;dziale 🏰 GILDIE I&nbsp;KLANY na serwerze.</li>
+          <li><b>Ekipa zatwierdza</b>i&nbsp;od razu dostajesz kategorię, kanały i&nbsp;rolę z&nbsp;tagiem.</li>
+          <li><b>Rekrutujesz i&nbsp;grasz</b>z&nbsp;podaniami, punktami DKP, obecnością i&nbsp;harmonogramem.</li>
+        </ol>
+      </div>
+      <div class="karta karta-gildii pojaw">
+        <h3>Co dostaje gildia</h3>
+        <ul class="checklista">
+          <li>Kanały: ogłoszenia, czat, dowództwo i&nbsp;głosowy</li>
+          <li>Rola z&nbsp;tagiem gildii, np. 🏰 [TAG] Nazwa</li>
+          <li>Rekrutacja z&nbsp;formularzem podania i&nbsp;zrzutem postaci</li>
+          <li>Punkty DKP, rozdawanie łupu i&nbsp;ranking</li>
+          <li>Obecność na rajdach prosto z&nbsp;kanału głosowego</li>
+          <li>Harmonogram z&nbsp;przypomnieniem 15 minut przed</li>
+          <li>Sojusze ze wspólnymi kanałami</li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<section id="jak" style="padding-top:0">
+  <div class="srodek">
+    <div class="naglowek pojaw">
+      <span class="nadtytul">Jak dołączyć</span>
+      <h2>Trzy kroki i&nbsp;jesteś z&nbsp;nami</h2>
+    </div>
+    <div class="trzy">
+      <div class="karta pojaw"><div class="numer">1</div><h3>Kliknij „Dołącz”</h3><p>Otworzy się Discord. Konto zakładasz za darmo, jeśli jeszcze go nie masz.</p></div>
+      <div class="karta pojaw"><div class="numer">2</div><h3>Wybierz gry i&nbsp;tematy</h3><p>Zaznaczasz, co Cię interesuje, a&nbsp;serwer pokazuje Ci kanały do tego.</p></div>
+      <div class="karta pojaw"><div class="numer">3</div><h3>Przywitaj się</h3><p>Napisz na #ogólny albo wskocz na głosowy. Tu się rozmawia, nie tylko czyta.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pytania" style="padding-top:0">
+  <div class="srodek">
+    <div class="naglowek pojaw">
+      <span class="nadtytul">Pytania</span>
+      <h2>Zanim wejdziesz</h2>
+    </div>
+    <div class="faq pojaw">
+      <details><summary>Czy to coś kosztuje?</summary><p>Nie. Dołączenie, gildie i&nbsp;wszystkie funkcje serwera są za darmo.</p></details>
+      <details><summary>Muszę grać w&nbsp;gry?</summary><p>Nie. Są też działy o&nbsp;życiu codziennym, kulturze i&nbsp;pasjach, technologii i&nbsp;nauce, pracy, szkole i&nbsp;finansach oraz wiadomości.</p></details>
+      <details><summary>Mojej gry nie ma na liście. Co teraz?</summary><p>Napisz o&nbsp;niej na #gry-od-a-do-z&nbsp;i&nbsp;zaproponuj ją ekipie. Ludzi do gry znajdziesz też na #szukam-ekipy.</p></details>
+      <details><summary>Mam gildię. Co dostanę?</summary><p>Własną kategorię z&nbsp;ogłoszeniami, czatem, dowództwem i&nbsp;głosowym, rolę z&nbsp;tagiem, rekrutację z&nbsp;podaniami, DKP, obecność na rajdach, harmonogram i&nbsp;sojusze.</p></details>
+      <details><summary>Jest regulamin i&nbsp;moderacja?</summary><p>Tak. Krótki regulamin, ekipa moderatorów i&nbsp;automatyczne filtry spamu.</p></details>
+    </div>
+  </div>
+</section>
+
+<div class="koniec">
+  <div class="srodek">
+    <div class="baner pojaw">
+      <h2>Do zobaczenia na serwerze</h2>
+      <p>Na serwerze jest już 65 osób. Wpadnij, wybierz swoje gry i&nbsp;przywitaj się.</p>
+      <a class="przycisk bialy" href="https://discord.gg/6XWCR6JbFd">Dołącz na Discordzie</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="srodek stopka">
+    <a class="marka" href="#"><img src="ikona.png" alt="" width="30" height="30"><span>Polski serwer o&nbsp;wszystkim</span></a>
+    <span>Liczby z&nbsp;18.10.2026 15:50. Strona nie używa ciasteczek ani śledzenia.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var norm = function (s) {
+    return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/ł/g, "l");
+  };
+  var pole = document.getElementById("szukaj");
+  var chipy = Array.prototype.slice.call(document.querySelectorAll("#gry .chip"));
+  var grupy = Array.prototype.slice.call(document.querySelectorAll("#gry .grupa"));
+  var brak = document.getElementById("brak");
+  if (pole) {
+    pole.addEventListener("input", function () {
+      var q = norm(pole.value.trim());
+      var widac = 0;
+      chipy.forEach(function (c) {
+        var ok = !q || c.getAttribute("data-n").indexOf(q) !== -1;
+        c.hidden = !ok;
+        if (ok) { widac++; }
+      });
+      grupy.forEach(function (g) { g.hidden = !g.querySelector(".chip:not([hidden])"); });
+      brak.hidden = widac > 0;
+    });
+  }
+  var elementy = document.querySelectorAll(".pojaw");
+  var spokojnie = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!("IntersectionObserver" in window) || spokojnie) {
+    for (var i = 0; i < elementy.length; i++) { elementy[i].classList.add("widoczne"); }
+    return;
+  }
+  var obserwator = new IntersectionObserver(function (wpisy) {
+    wpisy.forEach(function (w) {
+      if (w.isIntersecting) { w.target.classList.add("widoczne"); obserwator.unobserve(w.target); }
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+  for (var j = 0; j < elementy.length; j++) { obserwator.observe(elementy[j]); }
+})();
+</script>
 </body>
 </html>
